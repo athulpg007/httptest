@@ -98,7 +98,7 @@ class Base:
 			assert self.response.response.status_code == status_code, (
 				f"Expected status code {status_code}, got {self.response.response.status_code}."
 			)
-			return # If status code is specified, we only validate that and skip other checks
+			return  # If status code is specified, we only validate that and skip other checks
 
 		if case == "positive":
 			self._validate_positive()

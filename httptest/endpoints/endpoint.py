@@ -28,7 +28,7 @@ class Endpoint:
 
 	base_url = None
 	headers = {}
-	
+
 	if env.ADD_MORE_HEADERS and env.ADDITIONAL_HEADERS is not None:
 		additional_headers = env.ADDITIONAL_HEADERS.split(",")
 		for header in additional_headers:
