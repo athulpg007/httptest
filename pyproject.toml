@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "httptest"
+version = "1.0.0"
+description = "A simple Python library to write HTTP endpoint tests"
+authors = [
+    { name = "Athul Girija", email = "athulpg007@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "requests",
+    "pytest",
+    "pytest-xdist",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[dependency-groups]
+dev = [
+    "coverage",
+    "pytest-cov",
+    "ruff",
+]
+
+[tool.ruff.lint]
+select = [
+    # flake8-builtins
+    "A",
+    # flake8-annotations
+    "ANN",
+    # flake8-unused-arguments
+    "ARG",
+    # flake8-bugbear
+    "B",
+    # complex-structure
+    "C901",
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # refurb
+    "FURB",
+    # isort
+    "I",
+    # pep8-naming
+    "N",
+    # Perflint
+    "PERF",
+    # flake8-pie
+    "PIE",
+    # flake8-pytest-style
+    "PT",
+    # flake8-quotes
+    "Q",
+    # flake8-raise
+    "RSE",
+    # flake8-return
+    "RET",
+    # flake8-bandit
+    "S",
+    # flake8-simplify
+    "SIM",
+    # flake8-print
+    "T20",
+    # flake8-todos
+    "TD",
+    # flake8-tidy-imports
+    "TID",
+    # pyupgrade
+    "UP",
+]
+ignore = [
+    "S101",  # Allow use of assert statements
+]
+per-file-ignores = { "tests/*" = ["ANN"], "scripts/*" = ["ANN", "T20"], "examples/*" = ["T20"] }
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "tab"
+docstring-code-format = true
+
+[tool.ruff]
+line-length = 120
