@@ -12,6 +12,7 @@ get_basic_auth_params = [
 get_base64_params = [
 	{"data": "SGVsbG8sIFdvcmxkIQ=="},
 	{"data": "SFRUUEJJTiBpcyBhd2Vzb21l"},
+	{"data": "VGhpcyBpcyBhIHRlc3QgZGF0YQ=="},
 ]
 
 get_bytes_params = [
