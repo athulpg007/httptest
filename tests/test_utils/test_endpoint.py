@@ -1,9 +1,9 @@
 from unittest import mock
 
-from httptest.endpoints.endpoint import Endpoint
+from httptest.endpoint import Endpoint
 
 
-@mock.patch("httptest.endpoints.endpoint.requests.get")
+@mock.patch("httptest.endpoint.requests.get")
 def test_get_method(mock_get):
 	ep = Endpoint()
 	ep.get("http://test", params={"a": 1})

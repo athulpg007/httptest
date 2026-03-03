@@ -1,4 +1,4 @@
-from httptest.endpoints.endpoint import Endpoint
+from httptest.endpoint import Endpoint
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
 
