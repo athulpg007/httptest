@@ -81,7 +81,12 @@ class Endpoint:
 			logging.info(f"params: {params}")
 		logging.info("")
 		return requests.get(
-			url=url, headers=self.headers, params=params, data=data, auth=auth, timeout=self.timeout,
+			url=url,
+			headers=self.headers,
+			params=params,
+			data=data,
+			auth=auth,
+			timeout=self.timeout,
 		)
 
 	def put(
