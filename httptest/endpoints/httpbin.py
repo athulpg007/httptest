@@ -73,3 +73,43 @@ class GetBytes(Endpoint):
 	def __init__(self, n: int) -> None:
 		self.url = f"{BASE_URL}/bytes/{n}"
 		self.response = self.get(url=self.url)
+
+
+class GetStreamBytes(Endpoint):
+	"""
+	Endpoint for fetching a specific number of random bytes as a stream from httpbin API.
+	"""
+
+	def __init__(self, n: int) -> None:
+		self.url = f"{BASE_URL}/stream-bytes/{n}"
+		self.response = self.get(url=self.url)
+
+
+class GetStream(Endpoint):
+	"""
+	Endpoint for fetching a stream of JSON objects from httpbin API.
+	"""
+
+	def __init__(self, n: int) -> None:
+		self.url = f"{BASE_URL}/stream/{n}"
+		self.response = self.get(url=self.url)
+
+
+class GetDelay(Endpoint):
+	"""
+	Endpoint for fetching a delayed response from httpbin API.
+	"""
+
+	def __init__(self, delay: int) -> None:
+		self.url = f"{BASE_URL}/delay/{delay}"
+		self.response = self.get(url=self.url)
+
+
+class GetUUID(Endpoint):
+	"""
+	Endpoint for fetching a random UUID from httpbin API.
+	"""
+
+	def __init__(self) -> None:
+		self.url = f"{BASE_URL}/uuid"
+		self.response = self.get(url=self.url)
