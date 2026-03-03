@@ -75,12 +75,14 @@ class Endpoint:
 			return
 		self.params = self.build_params(self.param_keys, self.param_values)
 
-	def get(self, url: str, params: dict = None, data: dict = None) -> requests.Response:
+	def get(self, url: str, params: dict = None, data: dict = None, auth: tuple[str, str] = None) -> requests.Response:
 		logging.info(f" GET: {url}")
 		if params:
 			logging.info(f"params: {params}")
 		logging.info("")
-		return requests.get(url=url, headers=self.headers, params=params, data=data, timeout=self.timeout)
+		return requests.get(
+			url=url, headers=self.headers, params=params, data=data, auth=auth, timeout=self.timeout,
+		)
 
 	def put(
 		self,
