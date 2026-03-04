@@ -45,9 +45,9 @@ class Endpoint:
 	json = None
 
 	def add_auth(self, mode: str = None) -> None:
-		if mode == "BASIC_AUTH":
-			assert self.access_key is not None, "API_ACCESS_KEY environment variable must be set for BASIC_AUTH mode."
-			assert self.secret_key is not None, "API_SECRET_KEY environment variable must be set for BASIC_AUTH mode."
+		if mode == "API_KEY":
+			assert self.access_key is not None, "API_ACCESS_KEY environment variable must be set for API_KEY mode."
+			assert self.secret_key is not None, "API_SECRET_KEY environment variable must be set for API_KEY mode."
 			self.headers = {
 				"Authorization": "basic " + self.access_key + ":" + self.secret_key,
 				"User-Agent": "custom-user-agent",
