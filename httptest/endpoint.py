@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO)
 class Endpoint:
 	"""
 	Base class for making API requests. All endpoints inherit from this base class.
-	Provides methods for GET, PUT, POST, and DELETE requests.
+	Provides methods for GET, PUT, POST, PATCH and DELETE requests.
 	"""
 
 	access_key = os.environ.get("API_ACCESS_KEY", None)
@@ -76,6 +76,15 @@ class Endpoint:
 		self.params = self.build_params(self.param_keys, self.param_values)
 
 	def get(self, url: str, params: dict = None, data: dict = None, auth: tuple[str, str] = None) -> requests.Response:
+		"""
+		Performs a GET request to the specified URL with optional parameters, data, and authentication.
+
+		:param url: str, the URL to send the GET request to
+		:param params: dict, optional query parameters to include in the request
+		:param data: dict, optional data to include in the request body (not typically used for GET requests)
+		:param auth: tuple, optional (username, password) for basic authentication
+		:return: requests.Response object containing the response from the server
+		"""
 		logging.info(f" GET: {url}")
 		if params:
 			logging.info(f"params: {params}")
@@ -98,6 +107,17 @@ class Endpoint:
 		json: dict = None,
 		cookies: dict = None,
 	) -> requests.Response | None:
+		"""
+		Performs a PUT request to the specified URL with optional parameters, data, files, JSON, and cookies.
+
+		:param url: str, the URL to send the PUT request to
+		:param params: dict, optional query parameters to include in the request
+		:param data: dict, str, bytes, or None, optional data to include in the request body
+		:param files: dict, optional files to include in the request (e.g., {"file": open("file.txt", "rb")})
+		:param json: dict, optional JSON data to include in the request body (will be serialized to JSON format)
+		:param cookies: dict, optional cookies to include in the request (e.g., {"session_id": "abc123"})
+		:return: requests.Response object containing the response from the server, or None if an error occurs
+		"""
 		logging.info(f" PUT: {url}")
 		if data or json:
 			logging.info(f"data: {self.data}")
@@ -122,6 +142,17 @@ class Endpoint:
 		json: dict = None,
 		cookies: dict = None,
 	) -> requests.Response | None:
+		"""
+		Performs a POST request to the specified URL with optional parameters, data, files, JSON, and cookies.
+
+		:param url: str, the URL to send the PUT request to
+		:param params: dict, optional query parameters to include in the request
+		:param data: dict, str, bytes, or None, optional data to include in the request body
+		:param files: dict, optional files to include in the request (e.g., {"file": open("file.txt", "rb")})
+		:param json: dict, optional JSON data to include in the request body (will be serialized to JSON format)
+		:param cookies: dict, optional cookies to include in the request (e.g., {"session_id": "abc123"})
+		:return: requests.Response object containing the response from the server, or None if an error occurs
+		"""
 		logging.info(f" POST: {url}")
 		if data or json:
 			logging.info(f"data: {self.data}")
@@ -148,6 +179,17 @@ class Endpoint:
 		json: dict = None,
 		cookies: dict = None,
 	) -> requests.Response | None:
+		"""
+		Performs a PATCH request to the specified URL with optional parameters, data, files, JSON, and cookies.
+
+		:param url: str, the URL to send the PUT request to
+		:param params: dict, optional query parameters to include in the request
+		:param data: dict, str, bytes, or None, optional data to include in the request body
+		:param files: dict, optional files to include in the request (e.g., {"file": open("file.txt", "rb")})
+		:param json: dict, optional JSON data to include in the request body (will be serialized to JSON format)
+		:param cookies: dict, optional cookies to include in the request (e.g., {"session_id": "abc123"})
+		:return: requests.Response object containing the response from the server, or None if an error occurs
+		"""
 		logging.info(f" PATCH: {url}")
 		if data or json:
 			logging.info(f"data: {self.data}")
@@ -173,6 +215,16 @@ class Endpoint:
 		json: dict | None = None,
 		files: dict = None,
 	) -> requests.Response | None:
+		"""
+		Performs a DELETE request to the specified URL with optional parameters, data, JSON, and files.
+
+		:param url: str, the URL to send the PUT request to
+		:param params: dict, optional query parameters to include in the request
+		:param data: dict, str, bytes, or None, optional data to include in the request body
+		:param files: dict, optional files to include in the request (e.g., {"file": open("file.txt", "rb")})
+		:param json: dict, optional JSON data to include in the request body (will be serialized to JSON format)
+		:return: requests.Response object containing the response from the server, or None if an error occurs
+		"""
 		logging.info(f" DELETE: {url}")
 		logging.info("")
 		if data or json:
