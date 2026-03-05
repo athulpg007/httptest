@@ -19,8 +19,9 @@ class Endpoint:
 	Provides methods for GET, PUT, POST, PATCH and DELETE requests.
 	"""
 
-	access_key = os.environ.get("API_ACCESS_KEY", None)
-	secret_key = os.environ.get("API_SECRET_KEY", None)
+	bearer_token = None
+	access_key = None
+	secret_key = None
 
 	timeout = settings.REQUEST_TIMEOUT
 
@@ -44,18 +45,24 @@ class Endpoint:
 	response = None
 	json = None
 
+	headers["User-Agent"] = env.CUSTOM_USER_AGENT
+
 	def add_auth(self, mode: str = None) -> None:
-		if mode == "API_KEY":
-			assert self.access_key is not None, "API_ACCESS_KEY environment variable must be set for API_KEY mode."
-			assert self.secret_key is not None, "API_SECRET_KEY environment variable must be set for API_KEY mode."
-			self.headers = {
-				"Authorization": "basic " + self.access_key + ":" + self.secret_key,
-				"User-Agent": "custom-user-agent",
-			}
+		if mode == "BEARER_TOKEN":
+			self.bearer_token = os.environ.get("BEARER_TOKEN", None)
+			assert self.bearer_token is not None, f"BEARER_TOKEN environment variable must be set for {mode} mode."
+			self.headers["Authorization"] = f"Bearer {self.bearer_token}"
+		elif mode == "ACCESS_KEY_SECRET_KEY":
+			self.access_key = os.environ.get("API_ACCESS_KEY", None)
+			self.secret_key = os.environ.get("API_SECRET_KEY", None)
+			assert self.access_key is not None, f"API_ACCESS_KEY environment variable must be set for {mode} mode."
+			assert self.secret_key is not None, f"API_SECRET_KEY environment variable must be set for {mode} mode."
+			self.headers["Authorization"] = f"basic {self.access_key}:{self.secret_key}"
 		else:
-			self.headers = {
-				"User-Agent": "custom-user-agent",
-			}
+			raise ValueError(
+				f"Unsupported authentication mode: {mode}. "
+				f"Supported modes are 'BEARER_TOKEN' and 'ACCESS_KEY_SECRET_KEY'."
+			)
 
 	@staticmethod
 	def build_params(param_keys: list[str], param_values: list[str | float]) -> dict:

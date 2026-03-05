@@ -1,4 +1,7 @@
+import os
 from unittest import mock
+
+import pytest
 
 from httptest.endpoint import Endpoint
 
@@ -8,6 +11,33 @@ def test_get_method(mock_get):
 	ep = Endpoint()
 	ep.get("http://test", params={"a": 1})
 	mock_get.assert_called_once()
+
+
+@mock.patch("httptest.endpoint.requests.get")
+def test_get_method_with_auth(mock_get):
+	ep = Endpoint()
+	ep.get("http://test", params={"a": 1}, auth=("user", "pass"))
+	mock_get.assert_called_once()
+
+
+def test_get_with_bearer_token():
+	with mock.patch.dict(os.environ, {"BEARER_TOKEN": "test_token"}):
+		ep = Endpoint()
+		ep.add_auth(mode="BEARER_TOKEN")
+		assert ep.headers["Authorization"] == "Bearer test_token"
+
+
+def test_get_with_access_key_secret_key():
+	with mock.patch.dict(os.environ, {"API_ACCESS_KEY": "test_access_key", "API_SECRET_KEY": "test_secret_key"}):
+		ep = Endpoint()
+		ep.add_auth(mode="ACCESS_KEY_SECRET_KEY")
+		assert ep.headers["Authorization"] == "basic test_access_key:test_secret_key"
+
+
+def test_invalid_auth_mode():
+	ep = Endpoint()
+	with pytest.raises(ValueError, match="Unsupported authentication mode"):
+		ep.add_auth(mode="INVALID_MODE")
 
 
 def test_build_params_static():
