@@ -35,3 +35,13 @@ class PostRequestWithFile(Endpoint):
 			with open(file, "rb") as f:
 				self.files = {"file": f.read()}
 		self.response = self.post(url=self.url, files=self.files)
+
+
+class GetResponseHeaders(Endpoint):
+	"""
+	Endpoint for sending a GET request to the response-headers endpoint.
+	"""
+
+	def __init__(self, params: dict = None) -> None:
+		self.url = f"{BASE_URL}/response-headers"
+		self.response = self.get(url=self.url, params=params)
