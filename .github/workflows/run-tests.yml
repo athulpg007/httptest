@@ -1,0 +1,28 @@
+name: run-tests
+on: pull_request
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+          cache: 'pip'
+      - run: | 
+          pip install --upgrade pip
+          pip install uv
+      - run: |
+          uv sync --frozen --no-install-project
+      - name: pytest
+        run: |
+          MULTIPLIER=8
+          NUM_WORKERS=$(( $(nproc) * MULTIPLIER )) 
+          source .venv/bin/activate
+          export PATH="/httptest/.venv/bin:$PATH"
+          pytest tests/ -m "not slow" -n $NUM_WORKERS --cov=. --cov-report= --cov-fail-under=90
