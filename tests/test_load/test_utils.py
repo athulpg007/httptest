@@ -62,7 +62,7 @@ class TestLoad(unittest.TestCase):
 		mock_endpoint = Mock()
 		params_list = [{}]
 		concurrency = 1
-		duration = 0.001  # 1  millisecond
+		duration = 0.01  # 10  millisecond
 
 		# Run the load test (output will print, but we just check it runs)
 		run_load_test(mock_endpoint, params_list, concurrency, duration)
