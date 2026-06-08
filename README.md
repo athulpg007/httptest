@@ -1,6 +1,6 @@
 ## httptest
 
-A simple Python framework to write tests for HTTP endpoints.
+A simple Python framework to write tests for HTTP endpoints .
 
 ## Getting Started
 
