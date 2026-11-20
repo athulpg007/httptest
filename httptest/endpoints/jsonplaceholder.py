@@ -9,6 +9,7 @@ class GetPosts(Endpoint):
 	"""
 
 	def __init__(self) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/posts"
 		self.response = self.get(url=self.url)
 
@@ -19,6 +20,7 @@ class GetPost(Endpoint):
 	"""
 
 	def __init__(self, post_id: int) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/posts/{post_id}"
 		self.response = self.get(url=self.url)
 
@@ -29,6 +31,7 @@ class GetPostComments(Endpoint):
 	"""
 
 	def __init__(self, post_id: int) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/posts/{post_id}/comments"
 		self.response = self.get(url=self.url)
 
@@ -39,6 +42,7 @@ class CreatePost(Endpoint):
 	"""
 
 	def __init__(self, title: str, body: str, user_id: int) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/posts"
 		self.data = {"title": title, "body": body, "userId": user_id}
 		self.headers["Content-Type"] = "application/json"
@@ -51,6 +55,7 @@ class UpdatePost(Endpoint):
 	"""
 
 	def __init__(self, post_id: int, title: str, body: str, user_id: int) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/posts/{post_id}"
 		self.data = {"id": post_id, "title": title, "body": body, "userId": user_id}
 		self.headers["Content-Type"] = "application/json"
@@ -63,6 +68,7 @@ class PatchPost(Endpoint):
 	"""
 
 	def __init__(self, post_id: int, title: str = None, body: str = None, user_id: int = None) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/posts/{post_id}"
 		self.data = {}
 		if title is not None:
@@ -81,5 +87,6 @@ class DeletePost(Endpoint):
 	"""
 
 	def __init__(self, post_id: int) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/posts/{post_id}"
 		self.response = self.delete(url=self.url)

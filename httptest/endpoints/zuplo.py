@@ -9,5 +9,6 @@ class GetRequest(Endpoint):
 	"""
 
 	def __init__(self, params: dict = None) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/get"
 		self.response = self.get(url=self.url, params=params)

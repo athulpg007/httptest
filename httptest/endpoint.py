@@ -28,13 +28,13 @@ class Endpoint:
 	auth = False
 
 	base_url = None
-	headers = {}
+	default_headers = {}
 
 	if env.ADD_MORE_HEADERS and env.ADDITIONAL_HEADERS is not None:
 		additional_headers = env.ADDITIONAL_HEADERS.split(",")
 		for header in additional_headers:
 			key, value = header.split(":")
-			headers[key.strip()] = value.strip()
+			default_headers[key.strip()] = value.strip()
 
 	url = None
 	param_keys = []
@@ -45,7 +45,10 @@ class Endpoint:
 	response = None
 	json = None
 
-	headers["User-Agent"] = env.CUSTOM_USER_AGENT
+	default_headers["User-Agent"] = env.CUSTOM_USER_AGENT
+
+	def __init__(self) -> None:
+		self.headers = self.default_headers.copy()
 
 	def add_auth(self, mode: str = None) -> None:
 		if mode == "BEARER_TOKEN":

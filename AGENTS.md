@@ -57,10 +57,12 @@
   ```python
   from httptest.endpoint import Endpoint
 
+
   class GetPost(Endpoint):
       def __init__(self, post_id: int):
-          self.url = f"https://example.com/posts/{post_id}"
-          self.response = self.get(url=self.url)
+        super().__init__()
+        self.url = f"https://example.com/posts/{post_id}"
+        self.response = self.get(url=self.url)
   ```
 
 ### Parameterized Tests
@@ -68,16 +70,16 @@
 - Example:
   ```python
   get_post_params = [
-      {"post_id": 1},
-      {"post_id": 2},
+    {"post_id": 1},
+    {"post_id": 2},
   ]
   ```
 - Write tests using `pytest.mark.parametrize`:
   ```python
   @pytest.mark.parametrize("params", get_post_params)
   def test_get_post(self, params):
-      response = GetPost(**params)
-      assert response.status_code == 200
+  	response = GetPost(**params)
+  	assert response.status_code == 200
   ```
 
 ### Authentication
