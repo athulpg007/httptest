@@ -12,22 +12,23 @@ from httptest.endpoint import Endpoint
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
 
+
 class GetPost(Endpoint):
-  """
-  Endpoint for fetching a single post by ID from JSONPlaceholder API.
-  """
+    """
+    Endpoint for fetching a single post by ID from JSONPlaceholder API.
+    """
 
-  def __init__(self, post_id: int) -> None:
-    self.url = f"{BASE_URL}/posts/{post_id}"
-    self.response = self.get(url=self.url)
-
+    def __init__(self, post_id: int) -> None:
+        super().__init__()
+        self.url = f"{BASE_URL}/posts/{post_id}"
+        self.response = self.get(url=self.url)
 ```
 You can define a list of test cases for the endpoint as follows:
 ```python
 get_post_params = [
-  {"post_id": 1},
-  {"post_id": 2},
-  {"post_id": 3},
+	{"post_id": 1},
+	{"post_id": 2},
+	{"post_id": 3},
 ]
 ```
 You can then write a parametrized test as follows:
@@ -38,11 +39,12 @@ from httptest.endpoints.jsonplaceholder import GetPost
 from httptest.utils.validate import Base, param_id
 from params.jsonplaceholder import get_post_params
 
+
 class TestGetPost(Base):
-  @pytest.mark.parametrize("params", get_post_params, ids=param_id)
-  def test_get_post(self, params):
-    self.response = GetPost(**params)
-    self.validate()
+	@pytest.mark.parametrize("params", get_post_params, ids=param_id)
+	def test_get_post(self, params):
+		self.response = GetPost(**params)
+		self.validate()
 ```
 Example test run using Pycharm:
 ![example-01](./media/example-01.png)
@@ -59,15 +61,16 @@ from httptest.endpoint import Endpoint
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
 
-class GetPost(Endpoint):
-  """
-  Endpoint for fetching a single post by ID from JSONPlaceholder API.
-  """
 
-  def __init__(self, post_id: int) -> None:
-    self.add_auth(mode="BEARER_TOKEN")
-    self.url = f"{BASE_URL}/posts/{post_id}"
-    self.response = self.get(url=self.url)
+class GetPost(Endpoint):
+	"""
+	Endpoint for fetching a single post by ID from JSONPlaceholder API.
+	"""
+
+	def __init__(self, post_id: int) -> None:
+		self.add_auth(mode="BEARER_TOKEN")
+		self.url = f"{BASE_URL}/posts/{post_id}"
+		self.response = self.get(url=self.url)
 ```
 The `BEARER_TOKEN` environment variable must be set in this case for use.
 

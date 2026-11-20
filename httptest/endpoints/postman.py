@@ -9,6 +9,7 @@ class GetRequest(Endpoint):
 	"""
 
 	def __init__(self, params: dict = None) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/get"
 		self.response = self.get(url=self.url, params=params)
 
@@ -19,6 +20,7 @@ class PostRequest(Endpoint):
 	"""
 
 	def __init__(self, data: dict = None) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/post"
 		self.response = self.post(url=self.url, data=data)
 
@@ -29,6 +31,7 @@ class PostRequestWithFile(Endpoint):
 	"""
 
 	def __init__(self, file: bytes = None) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/post"
 		self.files = None
 		if file:
@@ -43,5 +46,6 @@ class GetResponseHeaders(Endpoint):
 	"""
 
 	def __init__(self, params: dict = None) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/response-headers"
 		self.response = self.get(url=self.url, params=params)

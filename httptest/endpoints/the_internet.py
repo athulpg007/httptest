@@ -11,6 +11,7 @@ class GetStatusCode(Endpoint):
 	"""
 
 	def __init__(self, status_code: int) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/status_codes/{status_code}"
 		self.response = self.get(url=self.url)
 
@@ -21,5 +22,6 @@ class GetBasicAuth(Endpoint):
 	"""
 
 	def __init__(self, username: str, password: str) -> None:
+		super().__init__()
 		self.url = f"{BASE_URL}/basic_auth"
 		self.response = self.get(url=self.url, auth=(username, password))
